@@ -1,0 +1,77 @@
+@import "compass/reset";
+@import "compass/css3/box-sizing";
+
+* {
+  @include box-sizing(border-box);
+}
+
+#wrapper {
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+nav {
+  margin: 0 auto;
+  width: 80%;
+}
+
+nav ul li {
+  display: inline;
+}
+
+#controls {
+  left: 0;
+  position: fixed;
+  top: 50%;
+  right: 0;
+  z-index: 10;
+
+  a {
+    overflow: hidden;
+    width: 5%;
+  }
+
+  #prev-btn {
+    left: 0;
+    position: absolute;
+  }
+
+  #next-btn {
+    position: absolute;
+    right: 0;
+    text-align: right;
+  }
+}
+
+#slides-wrapper {
+  left: -150%;
+  position: relative;
+  width: 400%;
+
+  .slide {
+    float: left;
+    width: 20%;
+
+    .prev-next-lnks {
+      display: none;
+    }
+  }
+
+  #prev-slide,
+  #actv-slide,
+  #next-slide {
+    position: relative;
+  }
+
+  #prev-slide {
+    left: 0%;
+  }
+
+  #actv-slide {
+    left: 20%;
+  }
+
+  #next-slide {
+    left: 40%;
+  }
+}

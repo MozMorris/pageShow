@@ -1,0 +1,48 @@
+@import "compass/typography/vertical_rhythm";
+
+$base-font-size: 16px;
+$base-line-height: 24px;
+@include establish-baseline;
+
+html {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  @include trailer();
+}
+
+h1 {
+  @include adjust-font-size-to(24px);
+}
+
+header {
+  background-color: #222;
+
+  nav {
+    padding: $base-rhythm-unit;
+
+    li {
+      padding-right: $base-rhythm-unit;
+    }
+  }
+}
+
+.slide {
+  background-color: #ffd300;
+  padding: $base-rhythm-unit;
+}
+
+#controls a {
+  @include adjust-font-size-to(24px);
+  background-color: #222;
+}

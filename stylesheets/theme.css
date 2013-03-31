@@ -1,0 +1,21 @@
+* html { font-size: 100%; }
+
+html { font-size: 16px; line-height: 1.5em; }
+
+html { font-family: Helvetica, Arial, sans-serif; }
+
+a { color: #ccc; text-decoration: none; }
+
+a:hover { text-decoration: underline; }
+
+p { margin-bottom: 1.5em; }
+
+h1 { font-size: 1.5em; line-height: 2em; }
+
+header { background-color: #222; }
+header nav { padding: 1.5em; }
+header nav li { padding-right: 1.5em; }
+
+.slide { background-color: #ffd300; padding: 1.5em; }
+
+#controls a { font-size: 1.5em; line-height: 2em; background-color: #222; }
