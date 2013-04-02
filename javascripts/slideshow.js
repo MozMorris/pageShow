@@ -4,6 +4,7 @@ var slideshow = (function () {
 
   // slideshow elements
   var actvSlide = $('#actv-slide');
+  var controls = $('#controls a');
   var nextSlide = $('#next-slide');
   var nextBtn = $('#next-btn');
   var prevSlide = $('#prev-slide');
@@ -11,15 +12,15 @@ var slideshow = (function () {
 
   // disables next / prev buttons while content is loading
   var disableNav = function() {
-    $('#controls a').on('click', function() { return false; });
-    $('#controls a').off('click', navigate);
+    controls.on('click', function() { return false; });
+    controls.off('click', navigate);
     $(document).off('keyup', navigate);
     $(window).off('popstate', updateState);
   };
 
   // enables navigation
   var enableNav = function() {
-    $('#controls a').on('click', navigate);
+    controls.on('click', navigate);
     $(document).on('keyup', navigate);
     $(window).on('popstate', updateState);
   };
@@ -96,27 +97,39 @@ var slideshow = (function () {
   // updates active slide
   var updateSlide = function() {
     if (this == nextSlide[0]) {
-      prevSlide.remove();
-      prevSlide = actvSlide;
-      prevSlide.attr('id', 'prev-slide');
-      actvSlide = nextSlide;
-      actvSlide.attr('id', 'actv-slide');
-      updateLinks();
-      nextSlide = $('<div class="slide" id="next-slide"></div>').appendTo('#slides-wrapper');
-      nextSlide.load($('.prev-next-lnks .next', actvSlide).attr('href') + ' #actv-slide .content', postLoad);
+      activateNext();
     } else {
-      nextSlide.remove();
-      nextSlide = actvSlide;
-      nextSlide.attr('id', 'next-slide');
-      actvSlide = prevSlide;
-      actvSlide.attr('id', 'actv-slide');
-      updateLinks();
-      prevSlide = $('<div class="slide" id="prev-slide"></div>').prependTo('#slides-wrapper');
-      prevSlide.load($('.prev-next-lnks .prev', actvSlide).attr('href') + ' #actv-slide .content', postLoad);
+      activatePrev();
     }
+
+    // reset the css
     $([prevSlide, actvSlide, nextSlide]).each(function(i, e) {
       this.css('left', '');
     });
+  };
+
+  // bring the next slide into view
+  var activateNext = function() {
+    prevSlide.remove();
+    prevSlide = actvSlide;
+    prevSlide.attr('id', 'prev-slide');
+    actvSlide = nextSlide;
+    actvSlide.attr('id', 'actv-slide');
+    updateLinks();
+    nextSlide = $('<div class="slide" id="next-slide"></div>').appendTo('#slides-wrapper');
+    nextSlide.load($('.prev-next-lnks .next', actvSlide).attr('href') + ' #actv-slide .content', postLoad);
+  };
+
+  // bring the previous slide into view
+  var activatePrev = function() {
+    nextSlide.remove();
+    nextSlide = actvSlide;
+    nextSlide.attr('id', 'next-slide');
+    actvSlide = prevSlide;
+    actvSlide.attr('id', 'actv-slide');
+    updateLinks();
+    prevSlide = $('<div class="slide" id="prev-slide"></div>').prependTo('#slides-wrapper');
+    prevSlide.load($('.prev-next-lnks .prev', actvSlide).attr('href') + ' #actv-slide .content', postLoad);
   };
 
   // update the current state of the slideshow
