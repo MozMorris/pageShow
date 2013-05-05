@@ -3,67 +3,66 @@ var slideshow = (function () {
   "use strict";
 
   // slideshow elements
-  var actvSlide = $('#actv-slide');
-  var controls = $('#controls a');
-  var nextSlide = $('#next-slide');
-  var nextBtn = $('#next-btn');
-  var prevSlide = $('#prev-slide');
-  var prevBtn = $('#prev-btn');
+  var $actvSlide = $('#actv-slide');
+  var $controls = $('#controls a');
+  var $nextSlide = $('#next-slide');
+  var $nextBtn = $('#next-btn');
+  var $prevSlide = $('#prev-slide');
+  var $prevBtn = $('#prev-btn');
 
-  // disables next / prev buttons while content is loading
+  // disables navigation
   var disableNav = function() {
-    controls.on('click', function() { return false; });
-    controls.off('click', navigate);
-    $(document).off('keyup', navigate);
+    $controls.on('click', nothing);
+    $controls.off('click', navigate);
     $(window).off('popstate', updateState);
   };
 
   // enables navigation
   var enableNav = function() {
-    controls.on('click', navigate);
-    $(document).on('keyup', navigate);
+    $controls.off('click', nothing);
+    $controls.on('click', navigate);
     $(window).on('popstate', updateState);
   };
 
   // preloads previous / next slides (determined by next/previous buttons)
   var loadPreviousNext = function() {
-    prevSlide.load($('.link-meta .prev', actvSlide).attr('href') + ' #actv-slide >', function() {
-      nextSlide.load($('.link-meta .next', actvSlide).attr('href') + ' #actv-slide >', enableNav);
-    });
+    // load previous slide
+    $prevSlide.load($('.link-meta .prev', $actvSlide).attr('href') + ' #actv-slide >');
+    // load next slide & enabled navigation
+    $nextSlide.load($('.link-meta .next', $actvSlide).attr('href') + ' #actv-slide >', enableNav);
   };
 
   // detects which button has been clicked
   var navigate = function(e) {
     e.preventDefault();
     disableNav();
-
     var state = {};
 
-    if (this == prevBtn[0]) {
+    if (this == $prevBtn[0]) {
       previous();
       state = {
         direction: 'prev',
-        url: prevBtn.attr('href')
+        url: $prevBtn.attr('href')
       };
-    } else if (this == nextBtn[0] || e.which == 32) {
+    } else if (this == $nextBtn[0]) {
       next();
       state = {
         direction: 'next',
-        url: nextBtn.attr('href')
+        url: $nextBtn.attr('href')
       };
     }
 
     if (typeof state.url != 'undefined') {
-      window.history.pushState({ actvSlide: state.url }, document.title, state.url);
+      window.history.pushState({ $actvSlide: state.url }, document.title, state.url);
     }
   };
 
   // moves to the next slide
   var next = function() {
-    actvSlide.animate({
+    $actvSlide.animate({
       left: '-20%'
     }, 500, 'swing', function() {
-      nextSlide.animate({
+      $nextSlide.animate({
         left: '0%'
       }, 500, 'swing', updateSlide);
     });
@@ -71,10 +70,10 @@ var slideshow = (function () {
 
   // moves to the previous slide
   var previous = function() {
-    actvSlide.animate({
+    $actvSlide.animate({
       left: '60%'
     }, 500, 'swing', function() {
-      prevSlide.animate({
+      $prevSlide.animate({
         left: '40%'
       }, 500, 'swing', updateSlide);
     });
@@ -82,54 +81,54 @@ var slideshow = (function () {
 
   // updates links for next / prev buttons
   var updateLinks = function() {
-    var prevLink = $('.link-meta .prev', actvSlide),
-    nextLink = $('.link-meta .next', actvSlide);
+    var prevLink = $('.link-meta .prev', $actvSlide),
+    nextLink = $('.link-meta .next', $actvSlide);
 
     if (prevLink[0]) {
-      prevBtn.attr('href', prevLink.attr('href'));
+      $prevBtn.attr('href', prevLink.attr('href'));
     }
 
     if (nextLink[0]) {
-      nextBtn.attr('href', nextLink.attr('href'));
+      $nextBtn.attr('href', nextLink.attr('href'));
     }
   };
 
   // updates active slide
   var updateSlide = function() {
-    if (this == nextSlide[0]) {
+    if (this == $nextSlide[0]) {
       activateNext();
     } else {
       activatePrev();
     }
 
     // reset the css
-    $([prevSlide, actvSlide, nextSlide]).each(function(i, e) {
+    $([$prevSlide, $actvSlide, $nextSlide]).each(function(i, e) {
       this.css('left', '');
     });
   };
 
   // bring the next slide into view
   var activateNext = function() {
-    prevSlide.remove();
-    prevSlide = actvSlide;
-    prevSlide.attr('id', 'prev-slide');
-    actvSlide = nextSlide;
-    actvSlide.attr('id', 'actv-slide');
+    $prevSlide.remove();
+    $prevSlide = $actvSlide;
+    $prevSlide.attr('id', 'prev-slide');
+    $actvSlide = $nextSlide;
+    $actvSlide.attr('id', 'actv-slide');
     updateLinks();
-    nextSlide = $('<div class="slide" id="next-slide"></div>').appendTo('#slides-wrapper');
-    nextSlide.load($('.link-meta .next', actvSlide).attr('href') + ' #actv-slide >', postLoad);
+    $nextSlide = $('<div class="slide" id="next-slide"></div>').appendTo('#slides-wrapper');
+    $nextSlide.load($('.link-meta .next', $actvSlide).attr('href') + ' #actv-slide >', postLoad);
   };
 
   // bring the previous slide into view
   var activatePrev = function() {
-    nextSlide.remove();
-    nextSlide = actvSlide;
-    nextSlide.attr('id', 'next-slide');
-    actvSlide = prevSlide;
-    actvSlide.attr('id', 'actv-slide');
+    $nextSlide.remove();
+    $nextSlide = $actvSlide;
+    $nextSlide.attr('id', 'next-slide');
+    $actvSlide = $prevSlide;
+    $actvSlide.attr('id', 'actv-slide');
     updateLinks();
-    prevSlide = $('<div class="slide" id="prev-slide"></div>').prependTo('#slides-wrapper');
-    prevSlide.load($('.link-meta .prev', actvSlide).attr('href') + ' #actv-slide >', postLoad);
+    $prevSlide = $('<div class="slide" id="prev-slide"></div>').prependTo('#slides-wrapper');
+    $prevSlide.load($('.link-meta .prev', $actvSlide).attr('href') + ' #actv-slide >', postLoad);
   };
 
   // update the current state of the slideshow
@@ -141,6 +140,11 @@ var slideshow = (function () {
   var postLoad = function() {
     // the buttons work again
     enableNav();
+  };
+
+  // do nothing
+  var nothing = function() {
+    return false;
   };
 
   return {
