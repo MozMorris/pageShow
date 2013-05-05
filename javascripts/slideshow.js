@@ -148,7 +148,7 @@ var slideshow = (function () {
   };
 
   return {
-    initialise: function() {
+    initialise: function(options) {
       loadPreviousNext();
     }
   };
