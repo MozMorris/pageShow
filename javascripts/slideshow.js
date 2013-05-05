@@ -27,8 +27,8 @@ var slideshow = (function () {
 
   // preloads previous / next slides (determined by next/previous buttons)
   var loadPreviousNext = function() {
-    prevSlide.load($('.prev-next-lnks .prev', actvSlide).attr('href') + ' #actv-slide .content', function() {
-      nextSlide.load($('.prev-next-lnks .next', actvSlide).attr('href') + ' #actv-slide .content', enableNav);
+    prevSlide.load($('.link-meta .prev', actvSlide).attr('href') + ' #actv-slide >', function() {
+      nextSlide.load($('.link-meta .next', actvSlide).attr('href') + ' #actv-slide >', enableNav);
     });
   };
 
@@ -82,8 +82,8 @@ var slideshow = (function () {
 
   // updates links for next / prev buttons
   var updateLinks = function() {
-    var prevLink = $('.prev-next-lnks .prev', actvSlide),
-    nextLink = $('.prev-next-lnks .next', actvSlide);
+    var prevLink = $('.link-meta .prev', actvSlide),
+    nextLink = $('.link-meta .next', actvSlide);
 
     if (prevLink[0]) {
       prevBtn.attr('href', prevLink.attr('href'));
@@ -117,7 +117,7 @@ var slideshow = (function () {
     actvSlide.attr('id', 'actv-slide');
     updateLinks();
     nextSlide = $('<div class="slide" id="next-slide"></div>').appendTo('#slides-wrapper');
-    nextSlide.load($('.prev-next-lnks .next', actvSlide).attr('href') + ' #actv-slide .content', postLoad);
+    nextSlide.load($('.link-meta .next', actvSlide).attr('href') + ' #actv-slide >', postLoad);
   };
 
   // bring the previous slide into view
@@ -129,7 +129,7 @@ var slideshow = (function () {
     actvSlide.attr('id', 'actv-slide');
     updateLinks();
     prevSlide = $('<div class="slide" id="prev-slide"></div>').prependTo('#slides-wrapper');
-    prevSlide.load($('.prev-next-lnks .prev', actvSlide).attr('href') + ' #actv-slide .content', postLoad);
+    prevSlide.load($('.link-meta .prev', actvSlide).attr('href') + ' #actv-slide >', postLoad);
   };
 
   // update the current state of the slideshow

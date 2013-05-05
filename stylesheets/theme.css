@@ -18,4 +18,5 @@ header nav li { padding-right: 1.5em; }
 
 .slide { background-color: #ffd300; padding: 1.5em; }
 
-#controls a { font-size: 1.5em; line-height: 2em; background-color: #222; }
+#controls a { font-size: 1.5em; line-height: 2em; background-color: #222; opacity: 1; -webkit-transition: opacity .2s ease-out; -moz-transition: opacity .2s ease-out; -o-transition: opacity .2s ease-out; transition: opacity .2s ease-out; }
+#controls a:hover { opacity: .8; }

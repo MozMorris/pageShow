@@ -30,7 +30,7 @@ nav ul li { display: inline; }
 
 #slides-wrapper { left: -150%; position: relative; width: 400%; }
 #slides-wrapper .slide { float: left; width: 20%; }
-#slides-wrapper .slide .prev-next-lnks { display: none; }
+#slides-wrapper .slide .link-meta { display: none; }
 #slides-wrapper #prev-slide, #slides-wrapper #actv-slide, #slides-wrapper #next-slide { position: relative; }
 #slides-wrapper #prev-slide { left: 0%; }
 #slides-wrapper #actv-slide { left: 20%; }

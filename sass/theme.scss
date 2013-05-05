@@ -45,4 +45,14 @@ header {
 #controls a {
   @include adjust-font-size-to(24px);
   background-color: #222;
+  opacity: 1;
+
+  -webkit-transition: opacity .2s ease-out;
+     -moz-transition: opacity .2s ease-out;
+       -o-transition: opacity .2s ease-out;
+          transition: opacity .2s ease-out;
+
+  &:hover {
+    opacity: .8;
+  }
 }
