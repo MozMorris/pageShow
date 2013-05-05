@@ -1,6 +1,4 @@
 pageShow
 ========
 
-More info to follow.
-
-<!-- You best checkout [the demo](http://www.mozmorris.com/this-is-my-slideshow/). -->
+More info to follow, but go ahead and [checkout the demo](http://www.mozmorris.com/pageShow/).
